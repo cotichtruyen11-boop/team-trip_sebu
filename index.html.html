@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="description" content="Cebu Team Trip 2026 여행 플래너 - 항공, 숙소, 액티비티, 맛집, DAY별 일정" />
+  <meta property="og:title" content="Cebu Team Trip 2026" />
+  <meta property="og:description" content="Good People. Good Time. Cebu 2026." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://images.unsplash.com/photo-1540202404-a2f29016b523?auto=format&fit=crop&w=1600&q=80" />
+  <meta name="theme-color" content="#00b8c8" />
+  <title>Cebu Team Trip 2026</title>
+  <style>
+    :root {
+      --bg: #f6fbff;
+      --bg-soft: #eef8fb;
+      --text: #102033;
+      --muted: #64748b;
+      --line: rgba(15, 46, 72, 0.12);
+      --card: rgba(255, 255, 255, 0.72);
+      --glass: rgba(255, 255, 255, 0.54);
+      --turquoise: #00c2c7;
+      --ocean: #0077b6;
+      --deep: #043047;
+      --sand: #f7e7c2;
+      --white: #ffffff;
+      --shadow: 0 24px 70px rgba(7, 54, 82, 0.14);
+      --shadow-soft: 0 16px 45px rgba(7, 54, 82, 0.1);
+      --radius-xl: 32px;
+      --radius-lg: 24px;
+      --radius-md: 18px;
+      --max: 1180px;
+      --ease: cubic-bezier(.2,.8,.2,1);
+    }
+
+    [data-theme="dark"] {
+      --bg: #06131c;
+      --bg-soft: #081c29;
+      --text: #ecfeff;
+      --muted: #a5bdc8;
+      --line: rgba(255, 255, 255, 0.13);
+      --card: rgba(11, 31, 43, 0.72);
+      --glass: rgba(10, 32, 44, 0.56);
+      --deep: #e7fbff;
+      --shadow: 0 24px 80px rgba(0, 0, 0, 0.36);
+      --shadow-soft: 0 16px 48px rgba(0, 0, 0, 0.28);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Pretendard, "Noto Sans KR", Arial, sans-serif;
+      background:
+        radial-gradient(circle at 20% 5%, rgba(0, 194, 199, .18), transparent 32%),
+        radial-gradient(circle at 90% 12%, rgba(0, 119, 182, .15), transparent 34%),
+        var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button { font-family: inherit; }
+
+    .app-shell { position: relative; min-height: 100vh; min-height: calc(var(--vh, 1vh) * 100); }
+
+    .topbar {
+      position: fixed;
+      top: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(calc(100% - 28px), var(--max));
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 14px 12px 18px;
+      border: 1px solid var(--line);
+      background: var(--glass);
+      -webkit-backdrop-filter: blur(22px) saturate(145%);
+      backdrop-filter: blur(22px) saturate(145%);
+      border-radius: 999px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 850; letter-spacing: -0.04em; }
+    .brand-mark {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--turquoise), var(--ocean));
+      display: grid;
+      place-items: center;
+      color: white;
+      box-shadow: 0 10px 22px rgba(0, 178, 190, .35);
+    }
+
+    .top-actions { display: flex; align-items: center; gap: 8px; }
+    .pill-btn {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.28);
+      color: var(--text);
+      border-radius: 999px;
+      padding: 10px 13px;
+      cursor: pointer;
+      font-weight: 750;
+      transition: transform .25s var(--ease), background .25s var(--ease), box-shadow .25s var(--ease);
+    }
+    .pill-btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-soft); }
+
+    .hero {
+      min-height: 100vh;
+      min-height: calc(var(--vh, 1vh) * 100);
+      position: relative;
+      display: grid;
+      align-items: end;
+      overflow: hidden;
+      padding: 120px 18px 44px;
+      isolation: isolate;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(3, 22, 35, .22) 0%, rgba(3, 22, 35, .25) 34%, rgba(3, 22, 35, .62) 100%),
+        url('https://images.unsplash.com/photo-1540202404-a2f29016b523?auto=format&fit=crop&w=2200&q=88') center/cover no-repeat;
+      transform: translateY(var(--parallax, 0px)) scale(1.08);
+      z-index: -2;
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0 0;
+      height: 230px;
+      background: linear-gradient(180deg, transparent, var(--bg));
+      z-index: -1;
+    }
+
+    .hero-inner {
+      width: min(100%, var(--max));
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 28px;
+      align-items: end;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: white;
+      background: rgba(255,255,255,.16);
+      border: 1px solid rgba(255,255,255,.24);
+      -webkit-backdrop-filter: blur(18px);
+      backdrop-filter: blur(18px);
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 780;
+      box-shadow: 0 18px 45px rgba(0,0,0,.18);
+    }
+
+    .hero h1 {
+      margin: 20px 0 14px;
+      color: white;
+      font-size: clamp(52px, 9vw, 112px);
+      line-height: .88;
+      letter-spacing: -0.085em;
+      font-weight: 900;
+      text-shadow: 0 20px 60px rgba(0,0,0,.32);
+    }
+
+    .hero-copy {
+      max-width: 640px;
+      color: rgba(255,255,255,.9);
+      font-size: clamp(17px, 2vw, 21px);
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    .hero-panel {
+      border: 1px solid rgba(255,255,255,.22);
+      background: rgba(255,255,255,.18);
+      -webkit-backdrop-filter: blur(24px) saturate(150%);
+      backdrop-filter: blur(24px) saturate(150%);
+      border-radius: var(--radius-xl);
+      padding: 22px;
+      box-shadow: 0 34px 90px rgba(0,0,0,.24);
+      color: white;
+    }
+
+    .stat-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .stat {
+      border: 1px solid rgba(255,255,255,.18);
+      background: rgba(255,255,255,.14);
+      border-radius: 22px;
+      padding: 16px;
+      min-height: 105px;
+    }
+    .stat small { display: block; opacity: .72; margin-bottom: 10px; font-weight: 700; }
+    .stat strong { display: block; font-size: 18px; line-height: 1.35; letter-spacing: -.04em; }
+
+    main { padding: 42px 18px 90px; }
+    .section { width: min(100%, var(--max)); margin: 0 auto 82px; }
+    .section-head { display: flex; justify-content: space-between; gap: 24px; align-items: end; margin-bottom: 22px; }
+    .section-kicker { color: var(--ocean); font-weight: 900; letter-spacing: .11em; font-size: 12px; text-transform: uppercase; }
+    .section-title { margin: 7px 0 0; font-size: clamp(32px, 5vw, 58px); letter-spacing: -0.07em; line-height: .98; }
+    .section-desc { max-width: 440px; color: var(--muted); line-height: 1.65; margin: 0; }
+
+    .grid { display: grid; gap: 16px; }
+    .overview-grid { grid-template-columns: repeat(5, 1fr); }
+    .card {
+      position: relative;
+      border: 1px solid var(--line);
+      background: var(--card);
+      -webkit-backdrop-filter: blur(18px) saturate(145%);
+      backdrop-filter: blur(18px) saturate(145%);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+      transition: transform .35s var(--ease), box-shadow .35s var(--ease), border-color .35s var(--ease);
+    }
+    .card:hover { transform: translateY(-6px); box-shadow: var(--shadow); border-color: rgba(0, 194, 199, .33); }
+    .overview-card { padding: 20px; min-height: 176px; display: flex; flex-direction: column; justify-content: space-between; }
+    .icon-bubble { width: 42px; height: 42px; border-radius: 16px; display: grid; place-items: center; background: linear-gradient(135deg, rgba(0,194,199,.20), rgba(0,119,182,.16)); color: var(--ocean); font-size: 22px; }
+    .overview-card h3 { margin: 18px 0 8px; letter-spacing: -.04em; }
+    .overview-card p { margin: 0; color: var(--muted); line-height: 1.55; font-size: 14px; }
+
+    .stay-flow { display: grid; grid-template-columns: 1fr 32px 1fr 32px 1fr; gap: 14px; align-items: stretch; }
+    .flow-arrow { display: grid; place-items: center; color: var(--ocean); font-size: 28px; font-weight: 900; opacity: .8; }
+    .stay-card img, .spot-card img, .place-card img { width: 100%; height: 190px; object-fit: cover; display: block; }
+    .stay-body, .spot-body, .place-body { padding: 18px; }
+    .stay-body h3, .spot-body h3, .place-body h3 { margin: 0 0 8px; letter-spacing: -.045em; }
+    .stay-body p, .spot-body p, .place-body p { color: var(--muted); line-height: 1.58; margin: 0 0 14px; font-size: 14px; }
+
+    .btn-row { display: flex; gap: 8px; flex-wrap: wrap; }
+    .link-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.38);
+      color: var(--text);
+      padding: 9px 12px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 800;
+      transition: transform .25s var(--ease), background .25s var(--ease);
+    }
+    [data-theme="dark"] .link-btn { background: rgba(255,255,255,.08); }
+    .link-btn:hover { transform: translateY(-2px); background: rgba(0,194,199,.14); }
+
+    .days-wrap { display: grid; gap: 46px; }
+    .day-section {
+      scroll-margin-top: 110px;
+      border: 1px solid var(--line);
+      background: linear-gradient(135deg, var(--card), rgba(255,255,255,.36));
+      -webkit-backdrop-filter: blur(22px) saturate(150%);
+      backdrop-filter: blur(22px) saturate(150%);
+      border-radius: 38px;
+      padding: 24px;
+      box-shadow: var(--shadow-soft);
+    }
+    [data-theme="dark"] .day-section { background: linear-gradient(135deg, var(--card), rgba(255,255,255,.05)); }
+    .day-hero {
+      min-height: 300px;
+      border-radius: 30px;
+      overflow: hidden;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      position: relative;
+      color: white;
+      background-size: cover;
+      background-position: center;
+      margin-bottom: 22px;
+      isolation: isolate;
+    }
+    .day-hero::before { content:""; position:absolute; inset:0; background: linear-gradient(180deg, rgba(0,0,0,.12), rgba(0,0,0,.66)); z-index:-1; }
+    .day-hero small { font-weight: 900; letter-spacing: .14em; opacity: .88; }
+    .day-hero h2 { margin: 7px 0 8px; font-size: clamp(34px, 6vw, 70px); line-height: .9; letter-spacing: -.075em; }
+    .day-hero p { margin: 0; max-width: 650px; line-height: 1.62; opacity: .9; }
+
+    .timeline { position: relative; display: grid; gap: 14px; margin: 22px 0; }
+    .timeline::before { content:""; position:absolute; left: 106px; top: 8px; bottom: 8px; width: 2px; background: linear-gradient(var(--turquoise), var(--ocean)); opacity: .45; }
+    .time-item { display: grid; grid-template-columns: 92px 1fr; gap: 28px; align-items: start; position: relative; }
+    .time { font-weight: 900; color: var(--ocean); letter-spacing: -.04em; padding-top: 16px; text-align: right; }
+    .time-card { padding: 16px 18px; border-radius: 22px; border: 1px solid var(--line); background: rgba(255,255,255,.46); box-shadow: 0 12px 34px rgba(7,54,82,.08); }
+    [data-theme="dark"] .time-card { background: rgba(255,255,255,.06); }
+    .time-card::before { content:""; position:absolute; left: 100px; margin-top: 8px; width: 14px; height: 14px; border-radius: 50%; background: var(--turquoise); box-shadow: 0 0 0 7px rgba(0,194,199,.14); }
+    .time-card h4 { margin: 0 0 6px; letter-spacing: -.035em; }
+    .time-card p { margin: 0; color: var(--muted); line-height: 1.52; font-size: 14px; }
+
+    .places-grid { grid-template-columns: repeat(3, 1fr); margin-top: 20px; }
+    details.place-card summary { list-style: none; cursor: pointer; }
+    details.place-card summary::-webkit-details-marker { display: none; }
+    .place-meta { display: grid; gap: 9px; color: var(--muted); font-size: 13px; line-height: 1.45; padding-top: 2px; }
+    .place-extra { padding: 0 18px 18px; animation: open .28s var(--ease); }
+    @keyframes open { from { opacity:0; transform: translateY(-6px); } to { opacity:1; transform: translateY(0); } }
+
+    .spots-grid { grid-template-columns: repeat(3, 1fr); }
+    .spot-card { min-height: 100%; }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 11px;
+      border-radius: 999px;
+      background: rgba(0,194,199,.13);
+      color: var(--ocean);
+      font-size: 12px;
+      font-weight: 900;
+      margin-bottom: 10px;
+    }
+
+    .float-nav {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 60;
+      display: grid;
+      gap: 8px;
+      padding: 10px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: var(--glass);
+      -webkit-backdrop-filter: blur(22px) saturate(145%);
+      backdrop-filter: blur(22px) saturate(145%);
+      box-shadow: var(--shadow);
+    }
+    .float-nav a {
+      width: 50px;
+      height: 38px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      font-size: 12px;
+      font-weight: 900;
+      color: var(--text);
+      border: 1px solid transparent;
+      transition: background .25s var(--ease), color .25s var(--ease), transform .25s var(--ease);
+    }
+    .float-nav a:hover, .float-nav a.active { background: linear-gradient(135deg, var(--turquoise), var(--ocean)); color: white; transform: translateY(-2px); }
+
+    .footer {
+      min-height: 58vh;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 80px 18px;
+      background:
+        linear-gradient(180deg, var(--bg), rgba(0,119,182,.15)),
+        url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1900&q=85') center/cover no-repeat;
+      position: relative;
+      overflow: hidden;
+    }
+    .footer h2 { margin:0; color: white; font-size: clamp(46px, 9vw, 110px); line-height: .95; letter-spacing: -.08em; text-shadow: 0 22px 60px rgba(0,0,0,.36); }
+
+    .reveal { opacity: 1; transform: none; }
+    .anim-ready .reveal { opacity: 0; transform: translateY(24px); transition: opacity .75s var(--ease), transform .75s var(--ease); }
+    .anim-ready .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 980px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      .overview-grid { grid-template-columns: repeat(2, 1fr); }
+      .stay-flow { grid-template-columns: 1fr; }
+      .flow-arrow { transform: rotate(90deg); min-height: 24px; }
+      .places-grid, .spots-grid { grid-template-columns: repeat(2, 1fr); }
+      .section-head { align-items: start; flex-direction: column; }
+    }
+
+    @media (max-width: 640px) {
+      .topbar { top: 10px; width: calc(100% - 20px); padding: 10px 10px 10px 13px; }
+      .brand span { display: none; }
+      .pill-btn { padding: 9px 10px; font-size: 12px; }
+      .hero { padding: 104px 14px 30px; }
+      .hero h1 { font-size: clamp(48px, 16vw, 74px); }
+      .hero-panel { border-radius: 28px; padding: 14px; }
+      .stat-grid { grid-template-columns: 1fr; }
+      main { padding-left: 14px; padding-right: 14px; }
+      .overview-grid, .places-grid, .spots-grid { grid-template-columns: 1fr; }
+      .day-section { padding: 14px; border-radius: 30px; }
+      .day-hero { min-height: 255px; border-radius: 24px; padding: 20px; }
+      .timeline::before { left: 70px; }
+      .time-item { grid-template-columns: 60px 1fr; gap: 22px; }
+      .time { font-size: 13px; }
+      .time-card::before { left: 64px; }
+      .float-nav { left: 50%; right: auto; transform: translateX(-50%); grid-template-columns: repeat(6, 1fr); border-radius: 999px; }
+      .float-nav a { width: 42px; height: 34px; font-size: 11px; }
+    }
+
+
+    /* Mobile-first hardening: Telegram in-app browser / narrow screens */
+    img { max-width: 100%; }
+    .card, .hero-panel, .day-section, .time-card { -webkit-tap-highlight-color: transparent; }
+
+    @media (max-width: 760px) {
+      html, body { width: 100%; max-width: 100%; overflow-x: clip; }
+      body { background-attachment: scroll; }
+      .topbar {
+        top: 8px;
+        width: calc(100% - 16px);
+        border-radius: 24px;
+        padding: 9px 9px 9px 11px;
+      }
+      .brand-mark { width: 32px; height: 32px; font-size: 15px; }
+      .top-actions { gap: 6px; }
+      .pill-btn { min-height: 38px; padding: 8px 10px; font-size: 12px; }
+      .hero {
+        min-height: 100vh;
+        min-height: calc(var(--vh, 1vh) * 100);
+        padding: 92px 14px 28px;
+        align-items: end;
+      }
+      .hero-bg { background-position: center top; transform: scale(1.04); }
+      .hero::after { height: 160px; }
+      .hero-inner { gap: 18px; }
+      .eyebrow { font-size: 12px; padding: 8px 11px; max-width: 100%; }
+      .hero h1 {
+        margin: 14px 0 10px;
+        font-size: clamp(44px, 15vw, 68px);
+        line-height: .92;
+        letter-spacing: -0.075em;
+      }
+      .hero-copy { font-size: 15px; line-height: 1.62; }
+      .hero-panel { padding: 12px; border-radius: 24px; }
+      .stat-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+      .stat { min-height: auto; padding: 12px; border-radius: 18px; }
+      .stat small { margin-bottom: 6px; font-size: 11px; }
+      .stat strong { font-size: 13px; line-height: 1.42; word-break: keep-all; }
+      main { padding: 34px 12px 96px; }
+      .section { margin-bottom: 56px; }
+      .section-head { gap: 10px; margin-bottom: 16px; }
+      .section-title { font-size: clamp(28px, 9.5vw, 42px); line-height: 1.02; }
+      .section-desc { font-size: 14px; line-height: 1.56; }
+      .grid { gap: 12px; }
+      .overview-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .overview-card { min-height: 142px; padding: 15px; border-radius: 22px; }
+      .overview-card h3 { margin: 12px 0 6px; font-size: 16px; }
+      .overview-card p { font-size: 12.5px; }
+      .icon-bubble { width: 36px; height: 36px; border-radius: 14px; font-size: 18px; }
+      .stay-flow { gap: 10px; }
+      .flow-arrow { transform: none; min-height: 18px; font-size: 22px; }
+      .stay-card img, .spot-card img, .place-card img { height: 168px; }
+      .stay-body, .spot-body, .place-body { padding: 15px; }
+      .stay-body p, .spot-body p, .place-body p { font-size: 13px; }
+      .btn-row { gap: 7px; }
+      .link-btn { min-height: 36px; padding: 8px 10px; font-size: 12px; }
+      .days-wrap { gap: 30px; }
+      .day-section { scroll-margin-top: 88px; padding: 12px; border-radius: 26px; }
+      .day-hero { min-height: 218px; padding: 18px; border-radius: 21px; margin-bottom: 16px; }
+      .day-hero h2 { font-size: clamp(34px, 13vw, 52px); }
+      .day-hero p { font-size: 13.5px; line-height: 1.54; }
+      .timeline { gap: 12px; margin: 16px 0; }
+      .timeline::before { left: 19px; top: 0; bottom: 0; }
+      .time-item {
+        grid-template-columns: 1fr;
+        gap: 7px;
+        padding-left: 42px;
+      }
+      .time {
+        text-align: left;
+        padding-top: 0;
+        font-size: 12px;
+        line-height: 1.2;
+      }
+      .time-card { padding: 14px; border-radius: 18px; }
+      .time-card::before {
+        left: 13px;
+        margin-top: 2px;
+        width: 12px;
+        height: 12px;
+        box-shadow: 0 0 0 6px rgba(0,194,199,.12);
+      }
+      .time-card h4 { font-size: 15.5px; line-height: 1.3; }
+      .time-card p { font-size: 12.5px; word-break: keep-all; overflow-wrap: anywhere; }
+      .places-grid, .spots-grid { grid-template-columns: 1fr; }
+      .place-meta { font-size: 12.5px; overflow-wrap: anywhere; }
+      .place-extra { padding: 0 15px 15px; }
+      .float-nav {
+        left: 10px;
+        right: 10px;
+        bottom: max(10px, env(safe-area-inset-bottom));
+        transform: none;
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+        gap: 5px;
+        padding: 7px;
+        border-radius: 22px;
+      }
+      .float-nav a {
+        width: auto;
+        height: 36px;
+        min-width: 0;
+        font-size: 10.5px;
+      }
+      .footer { min-height: 45vh; padding: 70px 18px 94px; background-attachment: scroll; }
+      .footer h2 { font-size: clamp(44px, 14vw, 68px); }
+    }
+
+    @media (max-width: 390px) {
+      .stat-grid, .overview-grid { grid-template-columns: 1fr; }
+      .hero h1 { font-size: clamp(42px, 17vw, 60px); }
+      .float-nav a { font-size: 10px; height: 34px; }
+      .pill-btn { padding-inline: 8px; }
+    }
+
+
+    /* iPhone / Telegram WebView visibility hardening */
+    @supports (-webkit-touch-callout: none) {
+      body { min-height: -webkit-fill-available; }
+      .hero { min-height: -webkit-fill-available; }
+      .hero-bg { transform: none !important; background-attachment: scroll !important; }
+      .topbar, .hero-panel, .card, .float-nav { -webkit-backdrop-filter: none !important; backdrop-filter: none !important; background: rgba(255,255,255,.92); }
+      [data-theme="dark"] .topbar, [data-theme="dark"] .hero-panel, [data-theme="dark"] .card, [data-theme="dark"] .float-nav { background: rgba(8,28,41,.94); }
+    }
+
+    @media (max-width: 932px) and (-webkit-touch-callout: none) {
+      .hero { min-height: calc(var(--vh, 1vh) * 100); padding-top: max(88px, env(safe-area-inset-top)); }
+      .hero-inner { display: block; }
+      .hero-panel { margin-top: 18px; color: var(--text); }
+      .hero-panel .stat { background: rgba(255,255,255,.7); color: var(--text); }
+      [data-theme="dark"] .hero-panel .stat { background: rgba(255,255,255,.08); color: var(--text); }
+      .float-nav { padding-bottom: max(7px, env(safe-area-inset-bottom)); }
+    }
+
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar" aria-label="상단 메뉴">
+      <a class="brand" href="#top"><span class="brand-mark">🌊</span><span>Cebu Team Trip</span></a>
+      <div class="top-actions">
+        <button class="pill-btn" id="shareBtn" type="button">공유</button>
+        <button class="pill-btn" id="themeBtn" type="button">다크모드</button>
+      </div>
+    </header>
+
+    <section class="hero" id="top">
+      <div class="hero-bg" aria-hidden="true"></div>
+      <div class="hero-inner reveal">
+        <div>
+          <div class="eyebrow">🇵🇭 Philippines Cebu · Team Workshop</div>
+          <h1>Cebu<br>Team Trip<br>2026</h1>
+          <p class="hero-copy">리조트 휴식, 해산물 다이닝, 액티비티, 호핑투어, 시티투어까지 연결된 6일간의 프리미엄 팀 워크샵 플래너.</p>
+        </div>
+        <aside class="hero-panel" aria-label="여행 핵심 정보">
+          <div class="stat-grid">
+            <div class="stat"><small>여행 기간</small><strong>2026.06.14 SUN<br>~ 2026.06.20 SAT</strong></div>
+            <div class="stat"><small>참가 인원</small><strong>10명 기준<br>Team Workshop</strong></div>
+            <div class="stat"><small>출국 항공</small><strong>ICN 20:05 → CEB 23:30<br>대한항공 프레스티지</strong></div>
+            <div class="stat"><small>귀국 항공</small><strong>CEB 01:00 → ICN 06:30<br>대한항공 프레스티지</strong></div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <main>
+      <section class="section reveal" id="overview">
+        <div class="section-head">
+          <div><div class="section-kicker">Overview</div><h2 class="section-title">여행 개요</h2></div>
+          <p class="section-desc">이동, 숙소, 액티비티, 맛집을 한 화면에서 빠르게 확인할 수 있도록 카드형으로 정리했습니다.</p>
+        </div>
+        <div class="grid overview-grid">
+          <article class="card overview-card"><div><div class="icon-bubble">✈️</div><h3>출국</h3><p>06/14 ICN 20:05 출발, CEB 23:30 도착.</p></div></article>
+          <article class="card overview-card"><div><div class="icon-bubble">🛫</div><h3>귀국</h3><p>06/20 CEB 01:00 출발, ICN 06:30 도착.</p></div></article>
+          <article class="card overview-card"><div><div class="icon-bubble">🏝️</div><h3>숙소 이동</h3><p>코스타벨라 → 프리베 바이 더 씨 → 홀리데이인.</p></div></article>
+          <article class="card overview-card"><div><div class="icon-bubble">🛥️</div><h3>액티비티</h3><p>사격, 페인트볼, 해변, 호핑투어, 고카트, 카지노.</p></div></article>
+          <article class="card overview-card"><div><div class="icon-bubble">🍽️</div><h3>주요 맛집</h3><p>The Cove, ACE CRAB, Mott32, Top of Cebu, Socarrat.</p></div></article>
+        </div>
+      </section>
+
+      <section class="section reveal" id="stays">
+        <div class="section-head">
+          <div><div class="section-kicker">Stay Flow</div><h2 class="section-title">숙소 이동 플로우</h2></div>
+          <p class="section-desc">막탄 리조트 무드에서 시작해 프라이빗 해변 숙소를 거쳐 세부 시티 중심부로 이동합니다.</p>
+        </div>
+        <div class="stay-flow">
+          <article class="card stay-card"><img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=900&q=82" alt="코스타벨라 리조트"><div class="stay-body"><h3>코스타벨라 트로피컬 비치 호텔</h3><p>입국 직후 체크인하는 막탄 리조트형 숙소. 첫날 컨디션 회복과 DAY2 이동 동선에 적합.</p><p><b>주소</b><br>Mactan Island, Buyong Rd, Maribago, Lapu-Lapu City</p><div class="btn-row"><a class="link-btn" target="_blank" href="https://maps.google.com/?q=Costabella+Tropical+Beach+Hotel+Cebu">지도</a></div></div></article>
+          <div class="flow-arrow">↓</div>
+          <article class="card stay-card"><img src="https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=900&q=82" alt="프라이빗 비치 숙소"><div class="stay-body"><h3>프리베 바이 더 씨</h3><p>숙소 앞 해변 접근성이 높은 프라이빗 스테이. 힐링 DAY와 호핑투어 전후 휴식에 적합.</p><p><b>위치</b><br>Maribago, Lapu-Lapu City Area</p><div class="btn-row"><a class="link-btn" target="_blank" href="https://www.airbnb.co.kr/rooms/1051095225396261264">후기/예약</a><a class="link-btn" target="_blank" href="https://maps.google.com/?q=Maribago+Lapu-Lapu+Cebu">지도</a></div></div></article>
+          <div class="flow-arrow">↓</div>
+          <article class="card stay-card"><img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=900&q=82" alt="시티 호텔"><div class="stay-body"><h3>Holiday Inn Cebu City by IHG</h3><p>시티투어, 쇼핑몰, 누스타 이동에 유리한 세부 시티 숙소. 마지막 일정 운영 거점.</p><p><b>주소</b><br>Lot 5 & 6, Block 20, Samar Loop, Cebu City</p><div class="btn-row"><a class="link-btn" target="_blank" href="https://maps.google.com/?q=Holiday+Inn+Cebu+City+by+IHG">지도</a></div></div></article>
+        </div>
+      </section>
+
+      <section class="section" id="days">
+        <div class="section-head reveal">
+          <div><div class="section-kicker">Itinerary</div><h2 class="section-title">DAY 1 ~ DAY 6</h2></div>
+          <p class="section-desc">각 DAY는 시간순 타임라인과 장소 카드로 분리했습니다. 상세보기 버튼을 누르면 주소, 전화번호, 후기, 지도 링크를 확인할 수 있습니다.</p>
+        </div>
+        <div class="days-wrap" id="daysWrap"></div>
+      </section>
+
+      <section class="section reveal" id="spots">
+        <div class="section-head">
+          <div><div class="section-kicker">Best Spots</div><h2 class="section-title">자동 하이라이트</h2></div>
+          <p class="section-desc">팀 여행 만족도를 좌우할 핵심 장소만 별도로 뽑아 빠르게 확인할 수 있게 구성했습니다.</p>
+        </div>
+        <div class="grid spots-grid" id="spotsGrid"></div>
+      </section>
+    </main>
+
+    <nav class="float-nav" aria-label="DAY 빠른 이동">
+      <a href="#day1">DAY1</a><a href="#day2">DAY2</a><a href="#day3">DAY3</a><a href="#day4">DAY4</a><a href="#day5">DAY5</a><a href="#day6">DAY6</a>
+    </nav>
+
+    <footer class="footer"><h2>Good People.<br>Good Time.<br>Cebu 2026.</h2></footer>
+  </div>
+
+  <script>
+    function setViewportHeight() {
+      document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`);
+    }
+    setViewportHeight();
+    window.addEventListener('resize', setViewportHeight, { passive: true });
+    window.addEventListener('orientationchange', () => setTimeout(setViewportHeight, 250), { passive: true });
+
+    const placeImages = {
+      "세부 CEB 공항": "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=900&q=82",
+      "기사 미팅": "https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?auto=format&fit=crop&w=900&q=82",
+      "코스타벨라 트로피컬 비치 호텔 체크인": "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=900&q=82",
+      "풍류정 식당": "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=900&q=82",
+      "The Cove Live Seafood Restaurant": "https://images.unsplash.com/photo-1559737558-2f5a35f4523b?auto=format&fit=crop&w=900&q=82",
+      "세부 원더랜드 슈터스 클럽 사격장": "https://images.unsplash.com/photo-1551830820-330a71b99659?auto=format&fit=crop&w=900&q=82",
+      "MANNFOXX PAINTBALL WARZONE": "https://images.unsplash.com/photo-1519074069444-1ba4fff66d16?auto=format&fit=crop&w=900&q=82",
+      "7107 Restaurant": "https://images.unsplash.com/photo-1552566626-52f8b828add9?auto=format&fit=crop&w=900&q=82",
+      "에이스 크랩 세부본점": "https://images.unsplash.com/photo-1559737558-2f5a35f4523b?auto=format&fit=crop&w=900&q=82",
+      "Maribago Beach": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=900&q=82",
+      "Buko Seaside bar and Restaurant": "https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=900&q=82",
+      "해적 호핑투어": "https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=900&q=82",
+      "촌놈식당 Chonnom Korean Restaurant": "https://images.unsplash.com/photo-1590301157890-4810ed352733?auto=format&fit=crop&w=900&q=82",
+      "The Pig and Palm": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=900&q=82",
+      "Cebu Kartzone Track": "https://images.unsplash.com/photo-1525609004556-c46c7d6cf023?auto=format&fit=crop&w=900&q=82",
+      "NUSTAR": "https://images.unsplash.com/photo-1596838132731-3301c3fd4317?auto=format&fit=crop&w=900&q=82",
+      "Mott 32": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=900&q=82",
+      "Top of Cebu": "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=82",
+      "Ayala Center Cebu": "https://images.unsplash.com/photo-1519567241046-7f570eee3ce6?auto=format&fit=crop&w=900&q=82",
+      "Socarrat": "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=900&q=82"
+    };
+
+    const days = [
+      { id:'day1', num:'DAY 1', date:'06/14 SUN', title:'입국 DAY', hero:'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=85', desc:'세부 도착 후 기사 미팅, 코스타벨라 체크인, 늦은 야식으로 첫날 컨디션을 정리하는 일정.', items:[
+        {time:'23:30', name:'세부 CEB 공항', loc:'세부 CEB 공항', desc:'세부 도착.', phone:'-', review:'#', map:'https://maps.google.com/?q=Mactan+Cebu+International+Airport'},
+        {time:'00:00~00:30', name:'기사 미팅', loc:'공항 인근', desc:'공항 인근에서 기사 미팅 후 숙소 이동.', phone:'-', review:'#', map:'https://maps.google.com/?q=Mactan+Cebu+International+Airport'},
+        {time:'00:30~01:00', name:'코스타벨라 트로피컬 비치 호텔 체크인', loc:'Mactan Island, Buyong Rd, Maribago, Lapu-Lapu City, Cebu 6015, Philippines', desc:'막탄 지역 리조트형 숙소 체크인.', phone:'(032) 238 2700', review:'https://kr.trip.com/hotels/detail/?cityEnName=Lapu-Lapu+City&cityId=72311&hotelId=713452', map:'https://maps.google.com/?q=Costabella+Tropical+Beach+Hotel+Cebu'},
+        {time:'01:30~03:00', name:'풍류정 식당', loc:'in between LG garden walk and Hmart, Sitio Ibapu, Mactan Maribago road, Mactan, Lapu-Lapu, 6015 Cebu, Philippines', desc:'도착 당일 늦은 식사 후보. 한식 기반으로 컨디션 회복에 유리.', phone:'+63 906 167 7980', review:'https://www.tripadvisor.co.kr/Restaurant_Review-g298461-d27463610-Reviews-Pungryujeong_Pavilion-Lapu_Lapu_Mactan_Island_Cebu_Island_Visayas.html', map:'https://maps.google.com/?q=Pungryujeong+Pavilion+Cebu'}
+      ]},
+      { id:'day2', num:'DAY 2', date:'06/15 MON', title:'액티비티 DAY', hero:'https://images.unsplash.com/photo-1519074069444-1ba4fff66d16?auto=format&fit=crop&w=1600&q=85', desc:'해산물 점심, 실탄 사격, 페인트볼, 저녁 식사, KTV 또는 술자리로 구성된 고에너지 팀 액티비티.', items:[
+        {time:'~11:30', name:'호텔 로비 집결', loc:'코스타벨라 호텔 로비', desc:'호텔 내 로비 집결 후 이동 준비.', phone:'-', review:'#', map:'https://maps.google.com/?q=Costabella+Tropical+Beach+Hotel+Cebu'},
+        {time:'12:00~13:30', name:'The Cove Live Seafood Restaurant', loc:'Bluewater Maribago Beach Resort, Maribago, Lapu-Lapu, 6015 Cebu, Philippines', desc:'막탄 대표 해산물 레스토랑. BEST SPOT 후보.', phone:'032 263 4410', review:'https://www.tripadvisor.co.kr/Restaurant_Review-g298461-d6949178-Reviews-The_Cove_Live_Seafood_Restaurant-Lapu_Lapu_Mactan_Island_Cebu_Island_Visayas.html', map:'https://maps.google.com/?q=The+Cove+Live+Seafood+Restaurant+Cebu'},
+        {time:'13:30~15:30', name:'세부 원더랜드 슈터스 클럽 사격장', loc:'7XGQ+748, M.L. Quezon National Highway, Lapu-Lapu, 6015 Cebu, Philippines', desc:'핸드건, 라이플, 샷건 등 여러 종류의 총기 경험.', phone:'0917 635 8284', review:'https://blog.naver.com/guama/223517190898', map:'https://maps.google.com/?q=Cebu+Wonderland+Shooters+Club'},
+        {time:'15:30~17:00', name:'MANNFOXX PAINTBALL WARZONE', loc:'Near Marigondon Barangay Hall, Marigondon Crossing, Lapu-Lapu City Cebu 6014, Philippines', desc:'팀 경쟁형 페인트볼 액티비티.', phone:'-', review:'https://www.youtube.com/watch?v=ZnUmRvNiJ2Q', map:'https://maps.google.com/?q=MANNFOXX+PAINTBALL+WARZONE+Cebu'},
+        {time:'17:00~19:00', name:'호텔 휴식', loc:'숙소', desc:'호텔 이동 후 샤워 및 휴식.', phone:'-', review:'#', map:'https://maps.google.com/?q=Costabella+Tropical+Beach+Hotel+Cebu'},
+        {time:'19:00~21:00', name:'7107 Restaurant', loc:'PH 2, 7107 restaurant, 6015, Maribago, Lapu-Lapu City, 6015 Cebu, Philippines', desc:'예약 필수 후보 레스토랑. 저녁 식사 일정.', phone:'+63 967 204 0839', review:'https://blog.naver.com/hyelimev_v/223194097708', map:'https://maps.google.com/?q=7107+Restaurant+Maribago+Cebu'},
+        {time:'21:00~00:00', name:'KTV or 술', loc:'미정', desc:'컨디션에 따라 KTV 또는 술자리.', phone:'-', review:'#', map:'https://maps.google.com/?q=KTV+Lapu-Lapu+Cebu'}
+      ]},
+      { id:'day3', num:'DAY 3', date:'06/16 TUE', title:'힐링 DAY', hero:'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=85', desc:'프리베 바이 더 씨 이동, ACE CRAB, 해변 휴식, 씨사이드 바까지 이어지는 회복 중심 일정.', items:[
+        {time:'11:00~11:30', name:'프리베 바이 더 씨 이동', loc:'Maribago Area', desc:'호텔 로비 집결 후 프리베 바이 더 씨 숙소로 이동 및 짐 풀기.', phone:'-', review:'https://www.airbnb.co.kr/rooms/1051095225396261264', map:'https://maps.google.com/?q=Maribago+Lapu-Lapu+Cebu'},
+        {time:'13:00~14:00', name:'에이스 크랩 세부본점', loc:'acecrab.Bagumbayan 2, M.L. Quezon National Highway, Maribago, Lapu-Lapu, Cebu, Philippines', desc:'크랩 중심의 인기 맛집. BEST SPOT 후보.', phone:'+639177150012', review:'https://blog.naver.com/jjamsd/223543423579', map:'https://maps.google.com/?q=ACECRAB+Cebu+Main+Branch'},
+        {time:'14:00~17:00', name:'Maribago Beach', loc:'Maribago Beach, Lapu-Lapu City', desc:'숙소 앞 해변 또는 Maribago Beach에서 자유시간. 패러세일링 등 액티비티 후보.', phone:'-', review:'#', map:'https://maps.google.com/?q=Maribago+Beach+Cebu'},
+        {time:'19:00~21:00', name:'Buko Seaside bar and Restaurant', loc:'Kontiki Datag, Maribago, Lapu-Lapu, 6015 Cebu, Philippines', desc:'씨사이드 무드의 저녁 식사 및 바.', phone:'0917 140 5696', review:'https://blog.naver.com/6_blossom/223951730369', map:'https://maps.google.com/?q=Buko+Seaside+Bar+and+Restaurant+Cebu'},
+        {time:'21:00~00:00', name:'보드게임 또는 내부 담소', loc:'숙소', desc:'다음날 오전 호핑투어를 고려해 숙소에서 휴식.', phone:'-', review:'#', map:'https://maps.google.com/?q=Maribago+Lapu-Lapu+Cebu'}
+      ]},
+      { id:'day4', num:'DAY 4', date:'06/17 WED', title:'호핑투어 DAY', hero:'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1600&q=85', desc:'해적 호핑투어를 중심으로 세부 바다를 즐기는 메인 휴양 일정.', items:[
+        {time:'08:25~', name:'호핑투어 픽업', loc:'호텔 로비', desc:'호텔 로비 집결 후 해적 호핑투어 차량 이동. 약 5~10분 소요.', phone:'-', review:'https://www.haejeokhopping.com/fit/39690', map:'https://maps.google.com/?q=Baybayon+Maribago+Lapu-Lapu+Cebu'},
+        {time:'09:00~17:00', name:'해적 호핑투어', loc:'Cebu Island Hopping Tour, Baybayon, Maribago, Lapu-Lapu, 6015 Cebu, Philippines', desc:'반일 투어 또는 풀데이 투어 선택. BEST SPOT 후보.', phone:'0956 278 4936', review:'https://www.haejeokhopping.com/fit/39690', map:'https://maps.google.com/?q=Cebu+Island+Hopping+Tour+Baybayon+Maribago'},
+        {time:'17:00~18:30', name:'숙소 휴식', loc:'숙소', desc:'투어 종료 후 숙소 이동 및 휴식.', phone:'-', review:'#', map:'https://maps.google.com/?q=Maribago+Lapu-Lapu+Cebu'},
+        {time:'19:00~21:00', name:'촌놈식당 Chonnom Korean Restaurant', loc:'Bagumbayan 1, Maribago, Lapu-Lapu, 6015 Cebu, Philippines', desc:'호핑투어 후 한식 저녁 식사.', phone:'0927 197 7941', review:'https://blog.naver.com/cozy_uzy/224042073790', map:'https://maps.google.com/?q=Chonnom+Korean+Restaurant+Cebu'},
+        {time:'21:00~', name:'휴식 및 미정', loc:'숙소 또는 인근', desc:'컨디션에 따라 자유시간.', phone:'-', review:'#', map:'https://maps.google.com/?q=Maribago+Lapu-Lapu+Cebu'}
+      ]},
+      { id:'day5', num:'DAY 5', date:'06/18 THU', title:'시티 & 럭셔리 DAY', hero:'https://images.unsplash.com/photo-1596838132731-3301c3fd4317?auto=format&fit=crop&w=1600&q=85', desc:'홀리데이인 이동 후 파인다이닝, 고카트, 누스타 카지노, Mott32까지 연결되는 시티 럭셔리 일정.', items:[
+        {time:'12:00~13:00', name:'홀리데이인 이동', loc:'Holiday Inn Cebu City by IHG', desc:'집결 후 홀리데이인 숙소로 이동 및 짐 풀기. 이동 약 30분 예정.', phone:'(032) 520 4444', review:'#', map:'https://maps.google.com/?q=Holiday+Inn+Cebu+City+by+IHG'},
+        {time:'14:00~15:30', name:'The Pig and Palm', loc:'G/F, MSY Tower, Negros Rd, Cebu City, 6000 Cebu, Philippines', desc:'파인다이닝 레스토랑. 예약 필수.', phone:'(032) 255 8249', review:'https://travel.naver.com/overseas/PHCEB10673137/poi/images/itotal', map:'https://maps.google.com/?q=The+Pig+and+Palm+Cebu'},
+        {time:'15:30~17:00', name:'Cebu Kartzone Track', loc:'8WF9+VCJ, F. Cabahug St, Cebu City, 6000 Cebu, Philippines', desc:'고카트 액티비티.', phone:'(032) 268 2553', review:'https://www.tripadvisor.co.kr/Attraction_Review-g298460-d9820670-Reviews-Kartzone-Cebu_City_Cebu_Island_Visayas.html', map:'https://maps.google.com/?q=Cebu+Kartzone+Track'},
+        {time:'17:00~20:00', name:'NUSTAR', loc:'NUSTAR Resort and Casino, Cebu South Road Properties, Cebu City', desc:'카지노 이동 및 플레이. BEST SPOT 후보.', phone:'-', review:'#', map:'https://maps.google.com/?q=NUSTAR+Resort+and+Casino+Cebu'},
+        {time:'20:00~22:00', name:'Mott 32', loc:'Nustar Resort and Casino, Cebu South Road Properties, Cebu City, 6000 Cebu, Philippines', desc:'NUSTAR 내 프리미엄 중식 레스토랑. BEST SPOT 후보.', phone:'-', review:'https://www.tripadvisor.co.kr/Restaurant_Review-g298460-d25443143-Reviews-Mott_32_Cebu-Cebu_City_Cebu_Island_Visayas.html', map:'https://maps.google.com/?q=Mott+32+Cebu+NUSTAR'},
+        {time:'22:00~', name:'휴식 및 미정', loc:'호텔 또는 인근', desc:'컨디션에 따라 자유시간.', phone:'-', review:'#', map:'https://maps.google.com/?q=Holiday+Inn+Cebu+City+by+IHG'}
+      ]},
+      { id:'day6', num:'DAY 6', date:'06/19 FRI', title:'마지막 DAY', hero:'https://images.unsplash.com/photo-1519567241046-7f570eee3ce6?auto=format&fit=crop&w=1600&q=85', desc:'월드컵 시청 후보, 체크아웃, Top of Cebu, 쇼핑, 저녁 식사, 공항 이동으로 마무리하는 마지막 일정.', items:[
+        {time:'09:00~11:00', name:'월드컵 멕시코전 시청 후보', loc:'미정', desc:'현지시간 09시 월드컵 멕시코전. 시청 시 모여서 볼 장소 필요.', phone:'-', review:'#', map:'https://maps.google.com/?q=Sports+bar+Cebu+City'},
+        {time:'12:00~12:30', name:'호텔 체크아웃', loc:'Holiday Inn Cebu City by IHG', desc:'호텔 체크아웃 후 집결. 레이트 체크아웃 가능 여부 확인 필요.', phone:'(032) 520 4444', review:'#', map:'https://maps.google.com/?q=Holiday+Inn+Cebu+City+by+IHG'},
+        {time:'13:00~15:00', name:'Top of Cebu', loc:'9VCC+789, Cebu Tops Rd, Cebu City, 6000 Cebu, Philippines', desc:'세부 전망을 볼 수 있는 레스토랑. BEST SPOT 후보.', phone:'0920 986 6565', review:'https://blog.naver.com/ddc_tour/223310641804', map:'https://maps.google.com/?q=Top+of+Cebu'},
+        {time:'15:00~18:00', name:'Ayala Center Cebu', loc:'Cebu City, 6000 Cebu, Philippines', desc:'쇼핑 및 자유시간.', phone:'(032) 888 3777', review:'https://blog.naver.com/seegodhot/223971756326', map:'https://maps.google.com/?q=Ayala+Center+Cebu'},
+        {time:'18:00~20:00', name:'Socarrat', loc:'Faustina Building, Bonifacio District, F. Cabahug St, Cebu City, 6000 Cebu, Philippines', desc:'마지막 저녁 식사 후보.', phone:'0968 407 4391', review:'https://www.tripadvisor.co.kr/Restaurant_Review-g298460-d26791792-Reviews-Socarrat-Cebu_City_Cebu_Island_Visayas.html', map:'https://maps.google.com/?q=Socarrat+Cebu'},
+        {time:'20:00~23:00', name:'공항 이동 준비', loc:'호텔 및 공항 인근', desc:'호텔 캐리어 회수, 공항 인근 휴식, 23시까지 공항 이동.', phone:'-', review:'#', map:'https://maps.google.com/?q=Mactan+Cebu+International+Airport'}
+      ]}
+    ];
+
+    const bestSpots = [
+      {name:'The Cove', desc:'막탄 리조트 무드와 해산물 다이닝을 동시에 가져가는 DAY2 핵심 맛집.', tag:'Seafood', img:placeImages['The Cove Live Seafood Restaurant'], map:'https://maps.google.com/?q=The+Cove+Live+Seafood+Restaurant+Cebu'},
+      {name:'ACE CRAB', desc:'크랩 중심의 강한 만족도 후보. 팀 식사 하이라이트로 적합.', tag:'Crab', img:placeImages['에이스 크랩 세부본점'], map:'https://maps.google.com/?q=ACECRAB+Cebu+Main+Branch'},
+      {name:'해적 호핑투어', desc:'세부 바다 경험의 메인 이벤트. 단체 사진과 팀 빌딩에 가장 강한 일정.', tag:'Island Hopping', img:placeImages['해적 호핑투어'], map:'https://maps.google.com/?q=Cebu+Island+Hopping+Tour+Baybayon+Maribago'},
+      {name:'NUSTAR', desc:'시티 럭셔리 무드의 카지노·리조트 거점. DAY5 밤 일정의 중심.', tag:'Casino', img:placeImages['NUSTAR'], map:'https://maps.google.com/?q=NUSTAR+Resort+and+Casino+Cebu'},
+      {name:'Mott32', desc:'NUSTAR 내 프리미엄 다이닝. 여행 후반부 고급 식사 포인트.', tag:'Fine Dining', img:placeImages['Mott 32'], map:'https://maps.google.com/?q=Mott+32+Cebu+NUSTAR'},
+      {name:'Top of Cebu', desc:'세부 전망을 보며 마지막 DAY를 정리하기 좋은 시티투어 하이라이트.', tag:'View', img:placeImages['Top of Cebu'], map:'https://maps.google.com/?q=Top+of+Cebu'}
+    ];
+
+    function makeTimeline(items) {
+      return items.map(item => `
+        <div class="time-item">
+          <div class="time">${item.time}</div>
+          <div class="time-card"><h4>${item.name}</h4><p>${item.desc}</p></div>
+        </div>`).join('');
+    }
+
+    function makePlaceCards(items) {
+      return items.map(item => {
+        const img = placeImages[item.name] || placeImages[item.loc] || 'https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=900&q=82';
+        const review = item.review && item.review !== '#' ? `<a class="link-btn" target="_blank" href="${item.review}">후기 링크</a>` : '';
+        return `
+        <details class="card place-card">
+          <summary>
+            <img src="${img}" alt="${item.name}">
+            <div class="place-body">
+              <h3>${item.name}</h3>
+              <p>${item.desc}</p>
+              <span class="link-btn">상세보기</span>
+            </div>
+          </summary>
+          <div class="place-extra">
+            <div class="place-meta">
+              <div><b>주소</b><br>${item.loc}</div>
+              <div><b>전화번호</b><br>${item.phone || '-'}</div>
+            </div>
+            <div class="btn-row" style="margin-top:14px;">
+              ${review}
+              <a class="link-btn" target="_blank" href="${item.map}">지도 링크</a>
+            </div>
+          </div>
+        </details>`;
+      }).join('');
+    }
+
+    function renderDays() {
+      const wrap = document.getElementById('daysWrap');
+      wrap.innerHTML = days.map(day => `
+        <section class="day-section reveal" id="${day.id}">
+          <div class="day-hero" style="background-image:url('${day.hero}')">
+            <small>${day.date}</small>
+            <h2>${day.num}<br>${day.title}</h2>
+            <p>${day.desc}</p>
+          </div>
+          <div class="timeline">${makeTimeline(day.items)}</div>
+          <div class="grid places-grid">${makePlaceCards(day.items)}</div>
+        </section>
+      `).join('');
+    }
+
+    function renderSpots() {
+      const grid = document.getElementById('spotsGrid');
+      grid.innerHTML = bestSpots.map(spot => `
+        <article class="card spot-card">
+          <img src="${spot.img}" alt="${spot.name}">
+          <div class="spot-body">
+            <div class="badge">★ ${spot.tag}</div>
+            <h3>${spot.name}</h3>
+            <p>${spot.desc}</p>
+            <div class="btn-row"><a class="link-btn" target="_blank" href="${spot.map}">지도 보기</a></div>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    function setupReveal() {
+      if (!('IntersectionObserver' in window)) {
+        document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
+        return;
+      }
+      document.documentElement.classList.add('anim-ready');
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) entry.target.classList.add('visible');
+        });
+      }, { threshold: 0.12 });
+      document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+    }
+
+    function setupParallax() {
+      const bg = document.querySelector('.hero-bg');
+      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduce || isIOS || !bg) return;
+      window.addEventListener('scroll', () => {
+        const y = Math.min(window.scrollY * 0.22, 130);
+        bg.style.setProperty('--parallax', `${y}px`);
+      }, { passive: true });
+    }
+
+    function setupTheme() {
+      const btn = document.getElementById('themeBtn');
+      const saved = localStorage.getItem('cebu-theme');
+      if (saved) document.documentElement.dataset.theme = saved;
+      btn.textContent = document.documentElement.dataset.theme === 'dark' ? '라이트모드' : '다크모드';
+      btn.addEventListener('click', () => {
+        const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+        document.documentElement.dataset.theme = next;
+        localStorage.setItem('cebu-theme', next);
+        btn.textContent = next === 'dark' ? '라이트모드' : '다크모드';
+      });
+    }
+
+    function setupShare() {
+      const btn = document.getElementById('shareBtn');
+      btn.addEventListener('click', async () => {
+        const data = { title: 'Cebu Team Trip 2026', text: 'Good People. Good Time. Cebu 2026.', url: location.href };
+        if (navigator.share) {
+          try { await navigator.share(data); } catch (e) {}
+        } else {
+          await navigator.clipboard.writeText(location.href);
+          btn.textContent = '링크 복사됨';
+          setTimeout(() => btn.textContent = '공유', 1400);
+        }
+      });
+    }
+
+    function setupActiveNav() {
+      const links = [...document.querySelectorAll('.float-nav a')];
+      const sections = links.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === `#${entry.target.id}`));
+          }
+        });
+      }, { rootMargin: '-42% 0px -52% 0px', threshold: 0 });
+      sections.forEach(sec => io.observe(sec));
+    }
+
+    try {
+      renderDays();
+      renderSpots();
+      setupReveal();
+      setupParallax();
+      setupTheme();
+      setupShare();
+      setupActiveNav();
+    } catch (error) {
+      console.error('Cebu planner render error:', error);
+      document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>
